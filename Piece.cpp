@@ -8,6 +8,7 @@ Piece_color Piece::get_color() const
 	return _color;
 }
 
+//Pawn
 Pawn::Pawn(Piece_color color):Piece(color)
 {
 }
@@ -24,6 +25,7 @@ bool Pawn::chek_move(const Point& from, const Point& to) const
 	return true;
 }
 
+//Knight
 Knight::Knight(Piece_color color):Piece(color)
 {
 }
@@ -34,23 +36,39 @@ bool Knight::chek_move(const Point& from, const Point& to) const
 	int y_from = from.getY();
 	int x_to = to.getX();
 	int y_to = to.getX();
-	//2 смещения по "y" и 1 по "x" или наоборот
+	//возможные смещения по "y"=2 и по "x"=2 или наоборот храним в массиве xy[8]
 	int dy = y_to - y_from;
 	int dx = x_to - x_from;
 	
-	Point dPoint(dx, dy);
-	Point xy[8] = { Point(2, 1), Point(1, 2), Point(-1, 2), Point(-2, -1), Point(-2, -1), Point(-1, -2), Point(1, -2), Point(2, -1) };
+	 Point dPoint(dx, dy);
+	 Point xy[8] = { Point(2, 1), Point(1, 2), Point(-1, 2), Point(-2, -1), Point(-2, -1), Point(-1, -2), Point(1, -2), Point(2, -1) };
 
 	//проверим смещение 
 	for (int i = 0; i < 8; i++)
 	{
-		if (xy[i] == dPoint) return true;
+		//if (xy[i] == dPoint) return true;
 	}
 	return false;
 }
 
-ostream& operator<<(ostream& os, Piece& p)
+ostream& operator<<(ostream& os, const Piece& p)
 {
-	os << "[X]";
+	/*if (typeid(p) == typeid(Pawn&))
+		os << "[P]";
+	if (typeid(p) == typeid(Knight&))
+		os << "[K]";
+	*/
+	//os << p;
+	return os;
+}
+
+ostream& operator<<(ostream& os, const Pawn& p)
+{
+	os << "[P]";
+	return os;
+}
+ostream& operator<<(ostream& os, const Knight& p)
+{
+	os << "[K]";
 	return os;
 }
