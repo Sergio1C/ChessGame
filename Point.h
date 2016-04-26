@@ -3,6 +3,8 @@
 #include <iostream>
 #include <conio.h>
 
+using namespace std;
+
 class Point
 {
 public:

@@ -29,4 +29,6 @@ public:
 	bool chek_move(const Point& from, const Point& to) const;
 };
 
+ostream& operator<<(ostream& os, Piece& p);
+
 #endif
