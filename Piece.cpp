@@ -24,11 +24,9 @@ bool Pawn::chek_move(const Point& from, const Point& to) const
 	return true;
 }
 
-
 Knight::Knight(Piece_color color):Piece(color)
 {
 }
-
 
 bool Knight::chek_move(const Point& from, const Point& to) const
 {
@@ -49,4 +47,10 @@ bool Knight::chek_move(const Point& from, const Point& to) const
 		if (xy[i] == dPoint) return true;
 	}
 	return false;
+}
+
+ostream& operator<<(ostream& os, Piece& p)
+{
+	os << "[X]";
+	return os;
 }
