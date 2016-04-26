@@ -16,7 +16,6 @@ public:
 	void piece(const Point&, Piece&);
 	bool Knight_Pos(const Point&) const;
 	bool correct_coords(int x, int y) const;
-
 private:
 	Piece* _desk[Size][Size];
 };
@@ -49,7 +48,7 @@ void Init(Desk<Size>& desk)
 template<int Size>
 const Piece& Desk<Size>::piece(const Point& p) const
 {
-			
+	return Piece(Piece_color white);
 };
 
 template<int Size>
@@ -72,6 +71,21 @@ template<int Size>
 bool Desk<Size>::correct_coords(int x, int y) const
 {
 	//
+}
+
+template<int Size>
+std::ostream& operator<<(ostream& os, Desk<Size>& D)
+{
+	for (int i = 0; i < D.get_size(); i++)
+	{
+		for (int j = 0; j < D.get_size(); j++)
+		{
+			os << D.piece(const Point(i, j));
+		}
+	
+		//os << end;
+	}
+	return os;
 }
 
 #endif
