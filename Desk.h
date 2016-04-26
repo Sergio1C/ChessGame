@@ -3,9 +3,8 @@
 #include "Piece.h"
 #include <vector>
 
-#define CHESS_COLUMN 2;//количество рядов для шахматных фигур
-//начальные позиции фигур
-const std::vector<const Point> KnightPos = { Point(0, 1), Point(0, 6), Point(7, 1), Point(7, 6) };
+//начальные позиции фигур - (изначально был вектор но не смог его обойти чтобы осуществить поиск точки) 
+Point KnightPos[4] = { Point(0, 1), Point(0, 6), Point(7, 1), Point(7, 6) };
 
 template<int Size>
 class Desk
@@ -40,7 +39,10 @@ void Init(Desk<Size>& desk)
 	{
 		for (int j = 0; j < count; j++)
 		{
-			desk.piece(Point(i,j), Pawn(black));
+			if (desk.Knight_Pos(Point(i, j)))
+				desk.piece(Point(i,j), Pawn(black));
+			else
+				desk.piece(Point(i, j), Pawn(black));
 		}			
 	}
 };
@@ -48,7 +50,7 @@ void Init(Desk<Size>& desk)
 template<int Size>
 const Piece& Desk<Size>::piece(const Point& p) const
 {
-	return Piece(Piece_color white);
+	return *_desk[p.getX()][p.getY()];
 };
 
 template<int Size>
@@ -60,17 +62,18 @@ void Desk<Size>::piece(const Point& p, Piece& piece)
 template<int Size>
 bool Desk<Size>::Knight_Pos(const Point& p) const
 {
-	//for (int i = 0; i < KnightPos.end(); i++)
-	//{
-		//if (KnightPos[i] == p) return true;
-	//}
+	for (int i = 0; i < 3; i++)
+	{
+		//if (KnightPos[i] == p) return true; //
+		if (KnightPos[i].getX() == p.getX() && KnightPos[i].getY() == p.getY()) return true;
+	}
 	return false;
 }
 
 template<int Size>
 bool Desk<Size>::correct_coords(int x, int y) const
 {
-	//
+	//пока не нужна...
 }
 
 template<int Size>
@@ -79,11 +82,11 @@ std::ostream& operator<<(ostream& os, Desk<Size>& D)
 	for (int i = 0; i < D.get_size(); i++)
 	{
 		for (int j = 0; j < D.get_size(); j++)
-		{
-			os << D.piece(const Point(i, j));
+		{			
+			os << D.piece(Point(i, j));
 		}
 	
-		//os << end;
+		os << endl;
 	}
 	return os;
 }

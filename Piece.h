@@ -1,6 +1,7 @@
 #ifndef PIECE_H
 #define PIECE_H
 #include "Point.h"
+#include <typeinfo.h>
 
 enum Piece_color { black, white};
 
@@ -29,6 +30,8 @@ public:
 	bool chek_move(const Point& from, const Point& to) const;
 };
 
-ostream& operator<<(ostream& os, Piece& p);
+ostream& operator<<(ostream& os, const Piece& p);
+ostream& operator<<(ostream& os, const Pawn& p);
+ostream& operator<<(ostream& os, const Knight& p);
 
 #endif

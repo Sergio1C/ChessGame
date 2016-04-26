@@ -4,42 +4,46 @@
 #include "Piece.h"
 #include "Desk.h"
 
-enum Game_type { chess, barley};
+static const int CHESS_COLUMN = 2;		//количество рядов для шахматных фигур
+static const int FIGURES_PER_ROW = 8;	//количество шахматных фигур
+
+enum Game_type {chess, barley};
 
 class Game{
 
 public:
-	Game();
+	//Game();
 	Game(Game_type game_type);
-	virtual void move(Piece&) = 0;
+	void move(Piece&);
+	void ChoiseOfPlayer(Piece_color);
 
 private:
 	Game_type _game_type;
 	Desk<8> _desk;
 	int _count_white;
 	int _count_black;
-
+	bool choise;
 };
 
-class Chess_Game{
-public:
-	Chess_Game(); 
-};
-
-class Barley_Game{
-public:
-	Barley_Game();
-};
-
-Game::Game()
+Game::Game(Game_type game_type) : _game_type(game_type)
 {
-	int choose;
-	std::cout << "Choose the game type:(chess=0;barley=1;exit=2)" << std::endl;	
-	std::cin >> choose;
-	switch (choose)
+	if (_game_type == Game_type::chess)
 	{
-	case 0: Chess_Game();
-	case 1:	Barley_Game();
-	case 2: exit(0);			
+		Init(_desk);
+		_count_white = CHESS_COLUMN * FIGURES_PER_ROW;//переделать на функцию гет
+		_count_black = CHESS_COLUMN * FIGURES_PER_ROW;
 	}
+
+	if (_game_type == Game_type::barley)
+	{
+		//не реализован
+	}
+	
+	ChoiseOfPlayer(Piece_color::white);
+}
+
+void Game::ChoiseOfPlayer(Piece_color color)
+{
+	cout << _desk;
+
 }
