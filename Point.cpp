@@ -39,7 +39,11 @@ bool operator==(const Point& p1, const Point& p2)
 	return (p1.getX() == p2.getX()) && (p1.getY() == p2.getY());
 }
 
-bool operator==(Point& p1, Point& p2)
+istream& operator>>(istream& is, Point& p)
 {
-	return (p1.getX() == p2.getX()) && (p1.getY() == p2.getY());
+	int x, y;
+	is >> x >> y;
+	p.SetX(x);
+	p.SetY(y);
+	return is;
 }

@@ -53,12 +53,8 @@ bool Knight::chek_move(const Point& from, const Point& to) const
 
 ostream& operator<<(ostream& os, const Piece& p)
 {
-	/*if (typeid(p) == typeid(Pawn&))
-		os << "[P]";
-	if (typeid(p) == typeid(Knight&))
-		os << "[K]";
-	*/
-	//os << p;
+	
+	os << p;
 	return os;
 }
 
@@ -70,5 +66,16 @@ ostream& operator<<(ostream& os, const Pawn& p)
 ostream& operator<<(ostream& os, const Knight& p)
 {
 	os << "[K]";
+	return os;
+}
+ostream& operator<<(ostream& os, const Piece* p)
+{
+	if ( p == nullptr )
+		os << "[ ]";
+	else if (p->get_color() == black)
+		os << "[B]";
+	else
+		os << "[W]";
+
 	return os;
 }
