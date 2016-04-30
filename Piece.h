@@ -31,6 +31,7 @@ public:
 };
 
 ostream& operator<<(ostream& os, const Piece& p);
+ostream& operator<<(ostream& os, const Piece* p);
 ostream& operator<<(ostream& os, const Pawn& p);
 ostream& operator<<(ostream& os, const Knight& p);
 
