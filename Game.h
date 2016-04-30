@@ -4,46 +4,80 @@
 #include "Piece.h"
 #include "Desk.h"
 
-static const int CHESS_COLUMN = 2;		//количество рядов для шахматных фигур
-static const int FIGURES_PER_ROW = 8;	//количество шахматных фигур
-
-enum Game_type {chess, barley};
-
 class Game{
 
 public:
-	//Game();
-	Game(Game_type game_type);
-	void move(Piece&);
-	void ChoiseOfPlayer(Piece_color);
-
-private:
-	Game_type _game_type;
+	Game();
+	virtual void move(const Piece*, const Point&, const Point&);
+	virtual void ChoiseOfPlayer(); //action in game
+	virtual bool EndOfGame();
+protected:
 	Desk<8> _desk;
 	int _count_white;
 	int _count_black;
+private:
 	bool choise;
+	Piece_color cur_color_move;
 };
 
-Game::Game(Game_type game_type) : _game_type(game_type)
-{
-	if (_game_type == Game_type::chess)
-	{
-		Init(_desk);
-		_count_white = CHESS_COLUMN * FIGURES_PER_ROW;//переделать на функцию гет
-		_count_black = CHESS_COLUMN * FIGURES_PER_ROW;
-	}
+Game::Game() : cur_color_move(Piece_color::white)
+{}
 
-	if (_game_type == Game_type::barley)
-	{
-		//не реализован
-	}
-	
-	ChoiseOfPlayer(Piece_color::white);
+class ChessGame : public Game
+{
+public:
+	ChessGame();
+	void move(const Piece* p, const Point& from, const Point& to);
+private:
+	static const int CHESS_COLUMN = 2;
+	static const int FIGURES_PER_ROW = 8;	
+};
+
+ChessGame::ChessGame() {
+	Game();
+	Init(_desk);
+	_count_white = CHESS_COLUMN * FIGURES_PER_ROW;
+	_count_black = CHESS_COLUMN * FIGURES_PER_ROW;
+	ChoiseOfPlayer();
 }
 
-void Game::ChoiseOfPlayer(Piece_color color)
+void ChessGame::move(const Piece* piece, const Point& from, const Point& to)
+{
+	_desk.piece(to, piece);
+}
+
+bool Game::EndOfGame()
+{
+	return (_count_black == 0 || _count_white == 0);
+}
+
+void Game::ChoiseOfPlayer()
 {
 	cout << _desk;
+
+	Point p_from, p_to;
+	const Piece* cur_piece = 0;
+
+	while (!EndOfGame())
+	{
+		string strColor = (cur_color_move == Piece_color::white ? "WHITE" : "BLACK");
+		cout << strColor.c_str() << endl;
+
+		while (true)
+		{
+			cout << "1.choise you piece (i,j):";
+			cin >> p_from;
+			cur_piece = _desk.piece(p_from);
+			cout << "2.You piece is:" << cur_piece << ". moved to (i,j):";
+			cin >> p_to;
+			if (cur_piece->chek_move(p_from, p_to))
+			{
+				move(cur_piece, p_from, p_to);
+				continue;
+			}		
+		}
+		return;
+
+	}
 
 }
