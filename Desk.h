@@ -3,9 +3,6 @@
 #include "Piece.h"
 #include <vector>
 
-//начальные позиции фигур 
-Point KnightPos[4] = { Point(0, 1), Point(0, 6), Point(7, 1), Point(7, 6) };
-
 template<int Size>
 class Desk
 {
@@ -13,8 +10,7 @@ public:
 	int get_size() { return Size; };
 	const Piece* piece(const Point&) const;
 	void piece(const Point& adress, const Piece*);
-	bool Knight_Pos(const Point&) const;
-	bool correct_coords(int x, int y) const;
+	bool Is_Knight_Pos(const Point&) const; //проверяет какую фигуру ставить на клетку (true - Knight, false - Pawn)
 private:
 	const Piece* _desk[Size][Size];
 };
@@ -35,7 +31,7 @@ void Init(Desk<Size>& desk)
 					continue;
 				}
 
-			if (desk.Knight_Pos(Point(i, j)))
+			if (desk.Is_Knight_Pos(Point(i, j)))
 				desk.piece(Point(i, j), new Knight(white));
 			else
 				desk.piece(Point(i, j), new Pawn(white));
@@ -46,7 +42,7 @@ void Init(Desk<Size>& desk)
 	{
 		for (int j = 0; j < Size; j++)
 		{
-			if (desk.Knight_Pos(Point(i, j)))
+			if (desk.Is_Knight_Pos(Point(i, j)))
 				desk.piece(Point(i,j), new Knight(black));
 			else
 				desk.piece(Point(i, j), new Pawn(black));
@@ -57,7 +53,13 @@ void Init(Desk<Size>& desk)
 template<int Size>
 const Piece* Desk<Size>::piece(const Point& p) const
 {
-	return _desk[p.getX()][p.getY()];
+	const Piece* ptr = 0;
+	try
+	{ 
+		ptr = _desk[p.getX()][p.getY()];
+	}
+	catch (...) {}
+	return ptr;
 };
 
 template<int Size>
@@ -67,20 +69,16 @@ void Desk<Size>::piece(const Point& p, const Piece* piece)
 }
 
 template<int Size>
-bool Desk<Size>::Knight_Pos(const Point& p) const
-{
+bool Desk<Size>::Is_Knight_Pos(const Point& p) const
+{	
+	//начальные позиции фигуры типа Knight на доске 
+	Point KnightPos[4] = { Point(0, 1), Point(0, 6), Point(7, 1), Point(7, 6) };
+
 	for (int i = 0; i < 3; i++)
 	{
-		//if (KnightPos[i] == p) return true; //
 		if (KnightPos[i].getX() == p.getX() && KnightPos[i].getY() == p.getY()) return true;
 	}
 	return false;
-}
-
-template<int Size>
-bool Desk<Size>::correct_coords(int x, int y) const
-{
-	//пока не нужна...
 }
 
 template<int Size>
