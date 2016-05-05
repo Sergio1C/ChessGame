@@ -8,7 +8,7 @@ class Game{
 
 public:
 	Game();
-	virtual void move(const Piece*, const Point&, const Point&);
+	virtual void move(const Piece*, const Point&, const Point&) {};
 	virtual void ChoiseOfPlayer(); //action in game
 	virtual bool EndOfGame();
 protected:
@@ -18,6 +18,7 @@ protected:
 private:
 	bool choise;
 	Piece_color cur_color_move;
+
 };
 
 Game::Game() : cur_color_move(Piece_color::white)
