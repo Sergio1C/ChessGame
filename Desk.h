@@ -71,7 +71,6 @@ bool Desk<Size>::Knight_Pos(const Point& p) const
 {
 	for (int i = 0; i < 3; i++)
 	{
-		//if (KnightPos[i] == p) return true; //
 		if (KnightPos[i].getX() == p.getX() && KnightPos[i].getY() == p.getY()) return true;
 	}
 	return false;
