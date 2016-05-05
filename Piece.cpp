@@ -52,3 +52,11 @@ bool Knight::chek_move(const Point& from, const Point& to) const
 	return false;
 }
 
+ostream& operator<<(ostream& os, const Piece* p)
+{
+	if (p == 0)
+		os << "[ ]";
+	else
+		os << p->print().c_str();
+	return os;
+}
