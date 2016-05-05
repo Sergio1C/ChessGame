@@ -23,7 +23,7 @@ class Pawn : public Piece
 public:
 	Pawn(Piece_color color);
 	bool chek_move(const Point& from, const Point& to) const;
-	string print() const { return "[P]"; }
+	string print() const;
 };
 //конь
 class Knight : public Piece
@@ -31,7 +31,7 @@ class Knight : public Piece
 public:
 	Knight(Piece_color color);
 	bool chek_move(const Point& from, const Point& to) const;
-	string print() const { return "[K]"; }
+	string print() const;
 };
 
 #endif
