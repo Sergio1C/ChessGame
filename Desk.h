@@ -51,7 +51,8 @@ template<int Size>
 const Piece& Desk<Size>::piece(const Point& p) const
 {
 	return *_desk[p.getX()][p.getY()];
-}	
+};
+
 template<int Size>
 void Desk<Size>::piece(const Point& p, Piece& piece)
 {

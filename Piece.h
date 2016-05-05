@@ -4,18 +4,15 @@
 #include <typeinfo.h>
 
 enum Piece_color { black, white};
-enum Piece_type {pawn,knight};
 
 class Piece
 {
 public:
-	Piece(Piece_color color, Piece_type type);
+	Piece(Piece_color color);
 	bool virtual chek_move(const Point& from, const Point& to) const =0;
-	Piece_color get_color() const { return _color; }
-	Piece_type get_type() const { return _type; }
+	Piece_color get_color() const;
 private:
 	Piece_color _color;
-	Piece_type _type;
 };
 
 //пешка
