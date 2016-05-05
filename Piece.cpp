@@ -1,11 +1,15 @@
 #include "Piece.h"
 
-Piece::Piece(Piece_color color, Piece_type type) : _color(color), _type(type)
+Piece::Piece(Piece_color color): _color(color)
+{}
+
+Piece_color Piece::get_color() const
 {
+	return _color;
 }
 
 //Pawn
-Pawn::Pawn(Piece_color color):Piece(color,pawn)
+Pawn::Pawn(Piece_color color):Piece(color)
 {
 }
 
@@ -22,7 +26,7 @@ bool Pawn::chek_move(const Point& from, const Point& to) const
 }
 
 //Knight
-Knight::Knight(Piece_color color):Piece(color, knight)
+Knight::Knight(Piece_color color):Piece(color)
 {
 }
 
@@ -49,10 +53,15 @@ bool Knight::chek_move(const Point& from, const Point& to) const
 
 ostream& operator<<(ostream& os, const Piece& p)
 {
-	Piece_type p_type = p.get_type();
-
+	/*if (typeid(p) == typeid(Pawn&))
+		os << "[P]";
+	if (typeid(p) == typeid(Knight&))
+		os << "[K]";
+	*/
+	//os << p;
 	return os;
 }
+
 ostream& operator<<(ostream& os, const Pawn& p)
 {
 	os << "[P]";
