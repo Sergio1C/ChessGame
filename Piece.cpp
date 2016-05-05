@@ -15,13 +15,13 @@ Pawn::Pawn(Piece_color color):Piece(color)
 
 bool Pawn::chek_move(const Point& from, const Point& to) const
 {
-	int x_from = from.getX();
-	int y_from = from.getY();
-	int x_to = to.getX();
-	int y_to = to.getX();
-	//пусть пешка всегда ходит на один Point и только вертикально
-	if (x_from != x_to) return false;
-	if (abs(y_to - y_from) !=1) return false;
+	int row_from = from.getX();
+	int col_from = from.getY();
+	int row_to = to.getX();
+	int col_to = to.getY();
+	//пусть пешка всегда ходит на одну клетку и только вертикально
+	if (col_from != col_to) return false;
+	if (abs(row_from - row_to) != 1) return false;
 	return true;
 }
 
@@ -59,28 +59,11 @@ bool Knight::chek_move(const Point& from, const Point& to) const
 }
 */
 
-ostream& operator<<(ostream& os, const Pawn& p)
-{
-	os << "[P]";
-	return os;
-}
-ostream& operator<<(ostream& os, const Knight& p)
-{
-	os << "[K]";
-	return os;
-}
 ostream& operator<<(ostream& os, const Piece* p)
 {
-	/*if ( p == nullptr )
+	if (p == 0)
 		os << "[ ]";
-	else if (p->get_color() == black)
-		os << "[B]";
 	else
-		os << "[W]";
-
+		os << p->print().c_str();
 	return os;
-	*/
-	os << p->print().c_str();
-	return os;
-
 }
