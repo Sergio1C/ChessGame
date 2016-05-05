@@ -51,12 +51,13 @@ bool Knight::chek_move(const Point& from, const Point& to) const
 	return false;
 }
 
-ostream& operator<<(ostream& os, const Piece& p)
+/*ostream& operator<<(ostream& os, const Piece& p)
 {
 	
 	os << p;
 	return os;
 }
+*/
 
 ostream& operator<<(ostream& os, const Pawn& p)
 {
@@ -70,7 +71,7 @@ ostream& operator<<(ostream& os, const Knight& p)
 }
 ostream& operator<<(ostream& os, const Piece* p)
 {
-	if ( p == nullptr )
+	/*if ( p == nullptr )
 		os << "[ ]";
 	else if (p->get_color() == black)
 		os << "[B]";
@@ -78,4 +79,8 @@ ostream& operator<<(ostream& os, const Piece* p)
 		os << "[W]";
 
 	return os;
+	*/
+	os << p->print().c_str();
+	return os;
+
 }
