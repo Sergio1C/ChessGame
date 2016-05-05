@@ -40,30 +40,15 @@ bool Knight::chek_move(const Point& from, const Point& to) const
 	int dy = y_to - y_from;
 	int dx = x_to - x_from;
 	
-	 Point dPoint(dx, dy);
-	 Point xy[8] = { Point(2, 1), Point(1, 2), Point(-1, 2), Point(-2, -1), Point(-2, -1), Point(-1, -2), Point(1, -2), Point(2, -1) };
+	 const Point dPoint(dx, dy);
+	 const Point xy[8] = { Point(2, 1), Point(1, 2), Point(-1, 2), Point(-2, -1), Point(-2, -1), Point(-1, -2), Point(1, -2), Point(2, -1) };
 
 	//проверим смещение 
 	for (int i = 0; i < 8; i++)
 	{
+		//что то с const.....
 		//if (xy[i] == dPoint) return true;
 	}
 	return false;
 }
 
-/*ostream& operator<<(ostream& os, const Piece& p)
-{
-	
-	os << p;
-	return os;
-}
-*/
-
-ostream& operator<<(ostream& os, const Piece* p)
-{
-	if (p == 0)
-		os << "[ ]";
-	else
-		os << p->print().c_str();
-	return os;
-}
