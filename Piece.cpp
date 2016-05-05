@@ -9,9 +9,7 @@ Piece_color Piece::get_color() const
 }
 
 //Pawn
-Pawn::Pawn(Piece_color color):Piece(color)
-{
-}
+Pawn::Pawn(Piece_color color):Piece(color){}
 
 bool Pawn::chek_move(const Point& from, const Point& to) const
 {
@@ -25,31 +23,46 @@ bool Pawn::chek_move(const Point& from, const Point& to) const
 	return true;
 }
 
-//Knight
-Knight::Knight(Piece_color color):Piece(color)
+string Pawn::print() const
 {
+	string pic;
+	pic = (get_color() == white ? "(" : "[");
+	pic += "P";
+	pic += (get_color() == white ? ")" : "]");
+	return pic;
 }
+
+//Knight
+Knight::Knight(Piece_color color):Piece(color){}
 
 bool Knight::chek_move(const Point& from, const Point& to) const
 {
 	int x_from = from.getX();
 	int y_from = from.getY();
 	int x_to = to.getX();
-	int y_to = to.getX();
+	int y_to = to.getY();
 	//возможные смещения по "y"=2 и по "x"=2 или наоборот храним в массиве xy[8]
 	int dy = y_to - y_from;
 	int dx = x_to - x_from;
 	
 	 const Point dPoint(dx, dy);
-	 const Point xy[8] = { Point(2, 1), Point(1, 2), Point(-1, 2), Point(-2, -1), Point(-2, -1), Point(-1, -2), Point(1, -2), Point(2, -1) };
+	       Point xy[8] = { Point(2, 1), Point(1, 2), Point(-1, 2), Point(-2, -1), Point(-2, -1), Point(-1, -2), Point(1, -2), Point(2, -1) };
 
 	//проверим смещение 
 	for (int i = 0; i < 8; i++)
 	{
-		//что то с const.....
-		//if (xy[i] == dPoint) return true;
+		if (xy[i] == dPoint) return true;
 	}
 	return false;
+}
+
+string Knight::print() const
+{
+	string pic;
+	pic = (get_color() == white ? "(" : "[");
+	pic += "K";
+	pic += (get_color() == white ? ")" : "]");
+	return pic;
 }
 
 ostream& operator<<(ostream& os, const Piece* p)
