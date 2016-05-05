@@ -24,7 +24,7 @@ void Init(Desk<Size>& desk)
 {
 	int count = Size-1;
 	//первые два ряда - белые фигуры
-	for (int i = 0; i < Size; i++)   //CHESS_COLUMN
+	for (int i = 0; i < Size; i++)
 	{
 		for (int j = 0; j < Size; j++)
 		{
@@ -86,11 +86,18 @@ bool Desk<Size>::correct_coords(int x, int y) const
 template<int Size>
 std::ostream& operator<<(ostream& os, Desk<Size>& D)
 {
-	for (int i = 0; i < D.get_size(); i++)
+	//x-coords [0...Size]
+	os << "x|y";
+	for (int x = 0; x < Size; x++)
+	os <<" "<<x<<" ";
+	os << endl;
+
+	for (int x = 0; x < D.get_size(); x++)
 	{
+		os << x << " ";
 		for (int j = 0; j < D.get_size(); j++)
 		{			
-			os << D.piece(Point(i, j));
+			os << D.piece(Point(x, j));
 		}
 	
 		os << endl;
