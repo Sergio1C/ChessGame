@@ -34,7 +34,4 @@ public:
 	string print() const { return "[K]"; }
 };
 
-ostream& operator<<(ostream& os, const Pawn& p);
-ostream& operator<<(ostream& os, const Knight& p);
-
 #endif
