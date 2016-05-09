@@ -31,6 +31,6 @@ public:
 	virtual void InitDesk(Desk<8>& desk); //можно ли прописать в таком варианте template? не хочу зависеть на числе "<8>"
 	virtual void move(const Piece* p, const Point& from, const Point& to);
 private:
-	static const int CHESS_COLUMN = 2;
-	static const int FIGURES_PER_ROW = 8;	
+	static const int FIGURES_ROW = 2;
+	static const int FIGURES_ON_ROW = 8;	
 };
