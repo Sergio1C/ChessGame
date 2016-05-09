@@ -95,3 +95,9 @@ ostream& operator<<(ostream& os, const Piece* p)
 		os << p->print().c_str();
 	return os;
 }
+
+ostream& operator<<(ostream& os, const Piece& p)
+{
+	os << p.print().c_str();
+	return os;
+}
