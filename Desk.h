@@ -7,59 +7,56 @@ template<int Size>
 class Desk
 {
 public:
-	int get_size() { return Size; };
-	const Piece* piece(const Point&) const;
+	Desk();
+	~Desk();
+	int size() const { return Size; };
+	const Piece* piece(const Point& adress) const;
 	void piece(const Point& adress, const Piece*);
-	bool Is_Knight_Pos(const Point&) const; //проверяет какую фигуру ставить на клетку (true - Knight, false - Pawn)
+	void delete_piece(const Point& adress);
 private:
 	const Piece* _desk[Size][Size];
 };
 
 template<int Size>
-void Init(Desk<Size>& desk)
+Desk<Size>::Desk()
 {
-	int count = Size-1;
-	//первые два ряда - белые фигуры
-	for (int i = 0; i < Size; i++)
+	for (int x = 0; x < Size; x++)
 	{
-		for (int j = 0; j < Size; j++)
+		for (int y = 0; y < Size; y++)
 		{
-			//пустые клетки
-			if (i > 1)
-				{
-					desk.piece(Point(i, j), 0);
-					continue;
-				}
-
-			if (desk.Is_Knight_Pos(Point(i, j)))
-				desk.piece(Point(i, j), new Knight(white));
-			else
-				desk.piece(Point(i, j), new Pawn(white));
+			delete_piece(Point(x, y));
 		}
 	}
-	//последние два ряда - черные фигуры
-	for (int i = count; i > count - 2; i--)
+}
+
+template<int Size>
+Desk<Size>::~Desk()
+{
+	for (int x = 0; x < Size; x++)
 	{
-		for (int j = 0; j < Size; j++)
+		for (int y = 0; y < Size; y++)
 		{
-			if (desk.Is_Knight_Pos(Point(i, j)))
-				desk.piece(Point(i,j), new Knight(black));
-			else
-				desk.piece(Point(i, j), new Pawn(black));
-		}			
+			delete _desk[x][y];
+		}
 	}
-};
+}
+
+template<int Size>
+void Erase(Desk<Size>& desk)
+{
+
+}
 
 template<int Size>
 const Piece* Desk<Size>::piece(const Point& p) const
 {
-	const Piece* ptr = 0;
-	try
-	{ 
-		ptr = _desk[p.getX()][p.getY()];
+	if (p.getX() > Size || p.getY() > Size || p.getX() < 0 || p.getY() < 0)
+	{
+		throw std::runtime_error("Error:your position is out of desk range"); //компилятор говорит необработанное исключение
 	}
-	catch (...) {}
-	return ptr;
+
+    return _desk[p.getX()][p.getY()];
+	
 };
 
 template<int Size>
@@ -68,21 +65,14 @@ void Desk<Size>::piece(const Point& p, const Piece* piece)
 	_desk[p.getX()][p.getY()] = piece;
 }
 
-template<int Size>
-bool Desk<Size>::Is_Knight_Pos(const Point& p) const
-{	
-	//начальные позиции фигуры типа Knight на доске 
-	Point KnightPos[4] = { Point(0, 1), Point(0, 6), Point(7, 1), Point(7, 6) };
-
-	for (int i = 0; i < 3; i++)
-	{
-		if (KnightPos[i].getX() == p.getX() && KnightPos[i].getY() == p.getY()) return true;
-	}
-	return false;
+template <int Size>
+void Desk<Size>::delete_piece(const Point& p)
+{
+	_desk[p.getX()][p.getY()] = nullptr;
 }
 
 template<int Size>
-std::ostream& operator<<(ostream& os, Desk<Size>& D)
+std::ostream& operator<<(ostream& os, const Desk<Size>& D)
 {
 	//x-coords [0...Size]
 	os << "x|y";
@@ -90,10 +80,10 @@ std::ostream& operator<<(ostream& os, Desk<Size>& D)
 	os <<" "<<x<<" ";
 	os << endl;
 
-	for (int x = 0; x < D.get_size(); x++)
+	for (int x = 0; x < D.size(); x++)
 	{
 		os << x << " ";
-		for (int j = 0; j < D.get_size(); j++)
+		for (int j = 0; j < D.size(); j++)
 		{			
 			os << D.piece(Point(x, j));
 		}
