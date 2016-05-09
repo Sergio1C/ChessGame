@@ -9,6 +9,7 @@ class Piece
 {
 
 friend ostream& operator<<(ostream&, const Piece*);
+friend ostream& operator<<(ostream&, const Piece&);
 
 public:
 	Piece(Piece_color color, Piece_type _type);
@@ -25,24 +26,24 @@ class Pawn : public Piece
 {
 public:
 	Pawn(Piece_color color);
-	bool chek_move(const Point& from, const Point& to) const;
-	string print() const;
+	virtual bool chek_move(const Point& from, const Point& to) const;
+	virtual string print() const;
 };
 
 class Knight : public Piece
 {
 public:
 	Knight(Piece_color color);
-	bool chek_move(const Point& from, const Point& to) const;
-	string print() const;
+	virtual bool chek_move(const Point& from, const Point& to) const;
+	virtual string print() const;
 };
 
 class Kind : public Piece
 {
 public:	
 	Kind(Piece_color color);
-	bool chek_move(const Point& from, const Point& to) const;
-	string print() const;
+	virtual bool chek_move(const Point& from, const Point& to) const;
+	virtual string print() const;
 };
 
 #endif
