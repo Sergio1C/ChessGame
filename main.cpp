@@ -34,7 +34,6 @@ void menu()
 int main()
 {
 	menu();
-	
 	_getch();
 	return 0;
 }
