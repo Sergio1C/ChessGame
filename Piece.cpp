@@ -1,6 +1,6 @@
 #include "Piece.h"
 
-Piece::Piece(Piece_color color): _color(color)
+Piece::Piece(Piece_color color, Piece_type type) : _color(color), _type(type)
 {}
 
 Piece_color Piece::get_color() const
@@ -8,8 +8,7 @@ Piece_color Piece::get_color() const
 	return _color;
 }
 
-//Pawn
-Pawn::Pawn(Piece_color color):Piece(color){}
+Pawn::Pawn(Piece_color color):Piece(color, pawn){}
 
 bool Pawn::chek_move(const Point& from, const Point& to) const
 {
@@ -32,8 +31,7 @@ string Pawn::print() const
 	return pic;
 }
 
-//Knight
-Knight::Knight(Piece_color color):Piece(color){}
+Knight::Knight(Piece_color color):Piece(color, knight){}
 
 bool Knight::chek_move(const Point& from, const Point& to) const
 {
@@ -57,6 +55,30 @@ bool Knight::chek_move(const Point& from, const Point& to) const
 }
 
 string Knight::print() const
+{
+	string pic;
+	pic = (get_color() == white ? "(" : "[");
+	pic += "k";
+	pic += (get_color() == white ? ")" : "]");
+	return pic;
+}
+
+Kind::Kind(Piece_color color):Piece(color, kind){}
+
+bool Kind::chek_move(const Point& from, const Point& to) const
+{
+	int x_from = from.getX();
+	int y_from = from.getY();
+	int x_to = to.getX();
+	int y_to = to.getY();
+	int dy = y_to - y_from;
+	int dx = x_to - x_from;
+
+	return (abs(dy) < 2 || abs(dx) < 2);
+
+}
+
+string Kind::print() const
 {
 	string pic;
 	pic = (get_color() == white ? "(" : "[");
